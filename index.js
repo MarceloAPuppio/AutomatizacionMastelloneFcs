@@ -37,4 +37,5 @@ const clave= "";
 
   await page.screenshot({ path: './example.png' });
   await browser.close();
+
 })();
