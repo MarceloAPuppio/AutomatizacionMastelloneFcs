@@ -5,9 +5,13 @@ const PW="Sa7079660";
 const DOMICILIO_ORIGEN="Salinas de Bebedero"
 const DOMICILIO_NUMERO="1"
 const TRANSPORTE="TERCEROS"//Puede ser propio también.
-const CUIT_TPTE="30-71078345-0"
-const CHASIS="NTE677"
-const ACOPLADO=""
+
+let objTransporte={
+    Nombre:"SOLIDUS",
+    CUIT:"30-71078345-0",
+    CHASIS:"NTE677",
+    ACOPLADO:""
+}
 let objDestinatario={
     CUIT:"30-71078345-0",
     Provincia:"M",
@@ -16,8 +20,21 @@ let objDestinatario={
     CP:"5570",
     Localidad:"10664",
     TipoComprobante:"1", RemitoPrefijo:"4", RemitoSufijo:"20362", Importe:"246951.32",
-    Productos:[{codigo:"250100",Unidad:"1", Cantidad:"28000", Descripcion:"Sal a granel Dos Anclas", Unidad2:"kilogramos", Cantidad2:"28000" }]
+    // Productos:[{codigo:"250100",Unidad:"1", Cantidad:"28000", Descripcion:"Sal a granel Dos Anclas", Unidad2:"kilogramos", Cantidad2:"28000" }]
+    Productos:[{codigo:"250100",Unidad:"1", Cantidad:"28000", Descripcion:"Sal a granel Dos Anclas", Unidad2:"kilogramos", Cantidad2:"28000" },{codigo:"250100",Unidad:"1", Cantidad:"7500", Descripcion:"Sal a fina seca DA", Unidad2:"kilogramos", Cantidad2:"7500" }]
 }
+let objDestinatario2={
+    CUIT:"30-71078345-0",
+    Provincia:"M",
+    Calle:"Alvarez Condarco",
+    Numero:"183",
+    CP:"5570",
+    Localidad:"10664",
+    TipoComprobante:"1", RemitoPrefijo:"4", RemitoSufijo:"20363", Importe:"270219.90",
+    Productos:[{codigo:"250100",Unidad:"1", Cantidad:"28000", Descripcion:"Sal a granel Dos Anclas", Unidad2:"kilogramos", Cantidad2:"28000" }]
+    // Productos:[{codigo:"250100",Unidad:"1", Cantidad:"28000", Descripcion:"Sal a granel Dos Anclas", Unidad2:"kilogramos", Cantidad2:"28000" },{codigo:"250100",Unidad:"1", Cantidad:"7500", Descripcion:"Sal a fina seca DA", Unidad2:"kilogramos", Cantidad2:"7500" }]
+}
+let clientes=[objDestinatario, objDestinatario2]
 /*DATOS ESPECÍFICOS PARA EL COT*/
 const CUIT_SOLIDUS="30-71078345-0"
 const DOMICILIO_SOLIDUS="Álvarez Condarco 183"
@@ -83,72 +100,117 @@ await continuar2.evaluate(b => b.click());
 await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(3) > tbody > tr:nth-child(4) > td:nth-child(2) > span > input:nth-child(1)',DOMICILIO_ORIGEN)
 await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(3) > tbody > tr:nth-child(4) > td:nth-child(2) > span > input:nth-child(2)',DOMICILIO_NUMERO)
 
+//Transporte
+await cargarTransporte(objTransporte,page)
+
+//CARGAR OPERACIONES--- hacer loop 😎😎😎😋
+for(let i=0; i<clientes.length; i++){
+    console.log(clientes[i])
+    await cargarCliente(page,browser,clientes[i])
+}
+})()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//funciones
+async function cargarTransporte(transporte, page){
 const radioBtn=await page.waitForSelector("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(2) > td:nth-child(2) > input:nth-child(2)")
 if(TRANSPORTE==="TERCEROS") radioBtn.evaluate(b=>b.click())
 else{
 const radioBtn2=await page.waitForSelector("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(2) > td:nth-child(2) > input:nth-child(2)")
 radioBtn2.evaluate(b=>b.click())
 }
-[prefijo,cuerpo,sufijo]= CUIT_TPTE.split("-")
+[prefijo,cuerpo,sufijo]= transporte.CUIT.split("-")
 await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(3) > td:nth-child(2) > input:nth-child(1)',prefijo)
 await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(3) > td:nth-child(2) > input:nth-child(2)',cuerpo)
 await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(3) > td:nth-child(2) > input:nth-child(3)',sufijo)
 //Chasis y acoplado
-await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(5) > td:nth-child(2) > input:nth-child(1)',CHASIS)
-await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(5) > td:nth-child(2) > input:nth-child(2)',ACOPLADO)
+await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(5) > td:nth-child(2) > input:nth-child(1)',transporte.CHASIS)
+await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(5) > td:nth-child(2) > input:nth-child(2)',transporte.ACOPLADO)
 
-//CARGAR OPERACIONES--- hacer loop 😎😎😎😋
-const BTN_CARGAR_OPERACIONES=await page.waitForSelector("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(15) > tbody > tr:nth-child(2) > td > input.botonFormulario2")
+}
+
+async function cargarComprobante(pagina,cliente){
+await pagina.select("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(2) > td:nth-child(2) > select",cliente.TipoComprobante)
+await pagina.waitForTimeout(300)
+await pagina.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(3) > td:nth-child(2) > input:nth-child(2)',cliente.RemitoSufijo)
+await pagina.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(3) > td:nth-child(2) > input:nth-child(1)',cliente.RemitoPrefijo)
+await pagina.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(6) > td:nth-child(2) > input',cliente.Importe)
+let btnAceptar=await pagina.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(10) > tbody > tr > td > input:nth-child(1)')
+await btnAceptar.evaluate(b=>b.click())
+await pagina.waitForTimeout(300)
+let btnAceptarOperacion=await pagina.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(11) > tbody > tr > td > input:nth-child(1)')
+await btnAceptarOperacion.evaluate(b=>b.click())
+}
+async function cargarProducto(producto,index,pagina){
+let btnAgregar=await pagina.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(1) > td > b > input')
+await btnAgregar.evaluate(b=>b.click())
+await pagina.waitForTimeout(300)
+//TODO HACER LOOP POR CANT DE PRODUCTOS
+await pagina.type(`[name="operacionProductoTablaCodigoUnico[${index}]"]`,producto.codigo)
+//body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(6) > td:nth-child(2) > input
+
+await pagina.select(`[name="operacionProductoTablaUnidadMedida[${index}]"]`,producto.Unidad)
+await pagina.type(`[name="operacionProductoTablaCantidad[${index}]"]`,producto.Cantidad)
+await pagina.type(`[name="operacionProductoTablaDetalle[${index}]"]`,producto.Descripcion)
+await pagina.type(`[name="operacionProductoTablaUnidadMedidaPropia[${index}]"]`,producto.Unidad2)
+await pagina.type(`[name="operacionProductoTablaCantidadPropia[${index}]"]`,producto.Cantidad2)
+let btnAceptarProducto=await pagina.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(5) > td:nth-child(8) > input:nth-child(1)')
+await btnAceptarProducto.evaluate(b=>b.click())
+
+}
+
+async function cargarCliente(pagina,browser,cliente){
+    const BTN_CARGAR_OPERACIONES=await pagina.waitForSelector("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(15) > tbody > tr:nth-child(2) > td > input.botonFormulario2")
 await BTN_CARGAR_OPERACIONES.evaluate(b => b.click());
-await page.waitForTimeout(200)
+await pagina.waitForTimeout(200)
 pages = await browser.pages(); // get all open pages by the browser
 let VENTANA_OPERACIONES = pages[pages.length - 1]; // the popup should be the last page opened
 //empezamos la carga
-[pre,cuerpo, sufijo]=objDestinatario.CUIT.split("-")
+[pre,cuerpo, sufijo]=cliente.CUIT.split("-")
 await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(2) > td:nth-child(2) > input:nth-child(3)',pre)
 await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(2) > td:nth-child(2) > input:nth-child(4)',cuerpo)
 await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(2) > td:nth-child(2) > input:nth-child(5)',sufijo)
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(4) > td:nth-child(2) > input:nth-child(1)',objDestinatario.Calle)
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(4) > td:nth-child(2) > input:nth-child(2)',objDestinatario.Numero)
-await VENTANA_OPERACIONES.select("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(3) > td:nth-child(2) > select",objDestinatario.Provincia)
+await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(4) > td:nth-child(2) > input:nth-child(1)',cliente.Calle)
+await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(4) > td:nth-child(2) > input:nth-child(2)',cliente.Numero)
+await VENTANA_OPERACIONES.select("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(3) > td:nth-child(2) > select",cliente.Provincia)
 
 let btnBuscar=await VENTANA_OPERACIONES.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(5) > tbody > tr:nth-child(5) > td > input.botonFormulario2')
 await btnBuscar.evaluate(b=>b.click())
 await VENTANA_OPERACIONES.waitForTimeout(200)
 pages = await browser.pages(); // get all open pages by the browser
 const VENTANA_LOCALIDAD = pages[pages.length - 1]; // the popup should be the last page opened
-await VENTANA_LOCALIDAD.type('body > table > tbody > tr > td > form > table > tbody > tr:nth-child(4) > td:nth-child(3) > input:nth-child(1)',objDestinatario.CP)
+await VENTANA_LOCALIDAD.type('body > table > tbody > tr > td > form > table > tbody > tr:nth-child(4) > td:nth-child(3) > input:nth-child(1)',cliente.CP)
 let btnBuscarLocalidad=await VENTANA_LOCALIDAD.waitForSelector('body > table > tbody > tr > td > form > table > tbody > tr:nth-child(4) > td:nth-child(3) > input.botonFormulario2')
 await btnBuscarLocalidad.evaluate(b=>b.click())
 await VENTANA_LOCALIDAD.waitForTimeout(300)
-await VENTANA_LOCALIDAD.select("body > table > tbody > tr > td > form > table > tbody > tr:nth-child(5) > td:nth-child(2) > select",objDestinatario.Localidad)
+await VENTANA_LOCALIDAD.select("body > table > tbody > tr > td > form > table > tbody > tr:nth-child(5) > td:nth-child(2) > select",cliente.Localidad)
 let btnAceptarLocalidad=await VENTANA_LOCALIDAD.waitForSelector('body > table > tbody > tr > td > form > table > tbody > tr:nth-child(6) > td > input:nth-child(1)')
 await btnAceptarLocalidad.evaluate(b=>b.click())
 
-//vuelvo a operaciones 
-console.log(pages.length,'cant pages')
-let btnAgregar=await VENTANA_OPERACIONES.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(1) > td > b > input')
-await btnAgregar.evaluate(b=>b.click())
-await VENTANA_OPERACIONES.waitForTimeout(300)
-//TODO HACER LOOP POR CANT DE PRODUCTOS
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(5) > td:nth-child(2) > input',objDestinatario.Productos[0].codigo)
-await page.select("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(5) > td:nth-child(3) > select",objDestinatario.Productos[0].Unidad)
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(5) > td:nth-child(4) > input',objDestinatario.Productos[0].Cantidad)
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(5) > td:nth-child(5) > input',objDestinatario.Productos[0].Descripcion)
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(5) > td:nth-child(6) > input',objDestinatario.Productos[0].Unidad2)
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(5) > td:nth-child(7) > input',objDestinatario.Productos[0].Cantidad2)
-let btnAceptarProducto=await VENTANA_OPERACIONES.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(5) > td:nth-child(8) > input:nth-child(1)')
-await btnAceptarProducto.evaluate(b=>b.click())
+for(let i=0; i<cliente.Productos.length; i++){
+    await cargarProducto(cliente.Productos[i],i,VENTANA_OPERACIONES)
+}
+
 btnAgregar=await VENTANA_OPERACIONES.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(9) > tbody > tr:nth-child(1) > td > b > input')
 await btnAgregar.evaluate(b=>b.click())
 await VENTANA_OPERACIONES.waitForTimeout(300)
-console.log('entrò a tipo de comprobante')
-await VENTANA_OPERACIONES.select("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(2) > td:nth-child(2) > select",objDestinatario.TipoComprobante)
-await VENTANA_OPERACIONES.waitForTimeout(300)
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(3) > td:nth-child(2) > input:nth-child(2)',objDestinatario.RemitoSufijo)
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(3) > td:nth-child(2) > input:nth-child(1)',objDestinatario.RemitoPrefijo)
-await VENTANA_OPERACIONES.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(8) > tbody > tr:nth-child(6) > td:nth-child(2) > input',objDestinatario.Importe)
-let btnAceptar=await VENTANA_OPERACIONES.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(10) > tbody > tr > td > input:nth-child(1)')
-await btnAceptar.evaluate(b=>b.click())
 
-})()
+console.log('entrò a tipo de comprobante')
+
+await cargarComprobante(VENTANA_OPERACIONES,cliente)
+
+}
