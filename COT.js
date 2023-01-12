@@ -43,8 +43,8 @@ const CODPOSTAL="5570";
 const browser = await puppeteer.launch({ headless: false });
 const page = await browser.newPage()
 await page.goto(URL);
-const email= await page.waitForSelector("#CUIT")
-const clave= await page.waitForSelector("#clave_Cuit")
+await page.waitForSelector("#CUIT")
+await page.waitForSelector("#clave_Cuit")
 const btnLogin = await page.waitForSelector("#frmDatos > div > button")
 await page.type("#CUIT",CUIT)
 await page.type("#clave_Cuit",PW)
