@@ -1,0 +1,24 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root{
+    --bg-color: #101010
+}
+body{
+    background-color: var(--bg-color);
+}
+.productos{
+    height: 20rem;
+    aspect-ratio: 2/1;
+    border: double greenyellow .5px;
+
+}
+.productoNuevo{}
+.producto{
+    padding: .25rem;
+    border: dashed deeppink .5px;
+    width:fit-content;
+
+}

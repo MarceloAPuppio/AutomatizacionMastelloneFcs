@@ -35,11 +35,9 @@ let objDestinatario2={
     // Productos:[{codigo:"250100",Unidad:"1", Cantidad:"28000", Descripcion:"Sal a granel Dos Anclas", Unidad2:"kilogramos", Cantidad2:"28000" },{codigo:"250100",Unidad:"1", Cantidad:"7500", Descripcion:"Sal a fina seca DA", Unidad2:"kilogramos", Cantidad2:"7500" }]
 }
 let clientes=[objDestinatario, objDestinatario2]
-/*DATOS ESPECÍFICOS PARA EL COT*/
-const CUIT_SOLIDUS="30-71078345-0"
-const DOMICILIO_SOLIDUS="Álvarez Condarco 183"
-const CODPOSTAL="5570";
-(async ()=>{
+
+
+async function COT(){
 const browser = await puppeteer.launch({ headless: false });
 const page = await browser.newPage()
 await page.goto(URL);
@@ -55,7 +53,7 @@ await continuar.evaluate(b => b.click());
 const obtenerCodigo = await page.waitForSelector('#cmenu > li:nth-child(1) > a')
 await obtenerCodigo.evaluate(b => b.click());
 const select= await page.waitForSelector("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(3) > tbody > tr:nth-child(3) > td:nth-child(2) > span > select")
-await page.select("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(3) > tbody > tr:nth-child(3) > td:nth-child(2) > span > select","M")
+await page.select("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(3) > tbody > tr:nth-child(3) > td:nth-child(2) > span > select", clientes[0].Provincia)
 await page.waitForTimeout(200)
 // const localidad= await page.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(9) > tbody > tr:nth-child(3) > td:nth-child(3) > input:nth-child(1)')
 // await page.type("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(9) > tbody > tr:nth-child(3) > td:nth-child(3) > input:nth-child(1)","GENERAL SAN MARTIN")
@@ -69,7 +67,7 @@ const popup = pages[pages.length - 1]; // the popup should be the last page open
 // const newPagePromise = new Promise(x => browser.once('targetcreated', target => x(target.page())));	
 // const popup = await newPagePromise;
 // console.log(popup.url(),'sdsdsdsdsdsd');
-await popup.type("body > table > tbody > tr > td > form > table > tbody > tr:nth-child(4) > td:nth-child(3) > input:nth-child(1)",CODPOSTAL)
+await popup.type("body > table > tbody > tr > td > form > table > tbody > tr:nth-child(4) > td:nth-child(3) > input:nth-child(1)",clientes[0].CP)
 const buscar1=await popup.waitForSelector("body > table > tbody > tr > td > form > table > tbody > tr:nth-child(4) > td:nth-child(3) > input.botonFormulario2")
 await buscar1.evaluate(b => b.click());
 const localidad2=await popup.waitForSelector('body > table > tbody > tr > td > form > table > tbody > tr:nth-child(5) > td:nth-child(2) > select')
@@ -78,7 +76,7 @@ await popup.waitForTimeout(200)
 const continuar1=await popup.waitForSelector("body > table > tbody > tr > td > form > table > tbody > tr:nth-child(6) > td > input:nth-child(1)")
 await continuar1.evaluate(b => b.click());
 const domicilio= await page.waitForSelector('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(9) > tbody > tr:nth-child(3) > td:nth-child(3) > input:nth-child(6)')
-await page.type("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(9) > tbody > tr:nth-child(3) > td:nth-child(3) > input:nth-child(6)",DOMICILIO_SOLIDUS)
+await page.type("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(9) > tbody > tr:nth-child(3) > td:nth-child(3) > input:nth-child(6)",clientes[0].Calle+ ' ' +clientes[0].Numero)
 await page.select("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(3) > tbody > tr:nth-child(3) > td:nth-child(2) > span > select","D")
 
 const CP2=await page.waitForSelector("body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(3) > tbody > tr:nth-child(5) > td:nth-child(2) > input.botonFormulario2")
@@ -108,7 +106,7 @@ for(let i=0; i<clientes.length; i++){
     console.log(clientes[i])
     await cargarCliente(page,browser,clientes[i])
 }
-})()
+}
 
 
 
@@ -214,3 +212,5 @@ console.log('entrò a tipo de comprobante')
 await cargarComprobante(VENTANA_OPERACIONES,cliente)
 
 }
+
+module.exports={COT}
