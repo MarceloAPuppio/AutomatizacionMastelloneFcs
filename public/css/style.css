@@ -4,21 +4,42 @@
     padding: 0;
 }
 :root{
-    --bg-color: #101010
+    --bg-color: #101010;
+    --primary-color:whitesmoke;
+    --secondary-color:#d6eff2;
+    --accent-color:#6dc8d0
 }
 body{
-    background-color: var(--bg-color);
+    /* background-color: var(--bg-color); */
+}
+main{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: "transporte transporte"
+                         "clientes aside"
+                         "botonera botonera"
+
+}
+.transporte{
+    background-color: var(--secondary-color);
+    grid-area: transporte;
+}
+.cliente{
+    grid-area: clientes;
 }
 .productos{
     height: 20rem;
     aspect-ratio: 2/1;
     border: double greenyellow .5px;
+    grid-area: aside;
 
 }
-.productoNuevo{}
-.producto{
+.productoNuevo{
     padding: .25rem;
     border: dashed deeppink .5px;
     width:fit-content;
+}
+.botonera{
 
 }
