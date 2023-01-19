@@ -11,20 +11,41 @@
 <body>
 <header></header>
 <main>
+    <form class="transporte" action="#">
+        <select name="CUIT" id="select_transporte">
+            <option value="propio">Propio del cliente</option>
+            <option value="venturih">Venturi Heber</option>
+            <option value="venturir">Venturi Rubén</option>
+            <option value="solidus">Solidus</option>
+        </select>
+        <input type="text" name="Chasis" id="" placeholder="Chasis" value="OAQ964">
+        <input type="text" name="Acoplado" id="" placeholder="Acoplado" value=""">
+
+    </form>
     <div class="cliente">
-        <select name="" id="">
-            <option value="">Cersósimo</option>
+        <select name="" id="select_cliente">
+            <option value="cersosimo">Cersósimo</option>
+            <option value="simplot">Simplot</option>
+            <option value="solidus">Solidus</option>
+            <option value="vildoza">Vildoza</option>
         </select>
     </div>
+    
     <div class="productos" ></div>
     <div class="productoNuevo">
         
     </div>
-    <div class="datos"></div>
+        <form class="datos" action="#">
+            <input type="text" name="RemitoPrefijo" id="" placeholder="prefijo" value="4">
+            <input type="text" name="RemitoSufijo" id="" placeholder="remito" value="4444" >
+            <input type="number" name="Importe" id="" placeholder="importe" value="4599">
+            <input type="hidden" name="TipoComprobante" value="1">
+        </form>
+
     <div class="botonera">
         <div class="addBtn"></div>
         
-        <form action=""><input type="button" value="+" id="add"><input type="submit" value="COT"></form>
+        <form action="" id="cotGenerator"><input type="button" value="+" id="add"><input type="submit" value="COT"></form>
     </div>
 </main>  
 

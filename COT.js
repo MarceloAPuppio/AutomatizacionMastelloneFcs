@@ -6,12 +6,12 @@ const DOMICILIO_ORIGEN="Salinas de Bebedero"
 const DOMICILIO_NUMERO="1"
 const TRANSPORTE="TERCEROS"//Puede ser propio también.
 
-let objTransporte={
-    Nombre:"SOLIDUS",
-    CUIT:"30-71078345-0",
-    CHASIS:"NTE677",
-    ACOPLADO:""
-}
+// let objTransporte={
+//     Nombre:"SOLIDUS",
+//     CUIT:"30-71078345-0",
+//     CHASIS:"NTE677",
+//     ACOPLADO:""
+// }
 let objDestinatario={
     CUIT:"30-71078345-0",
     Provincia:"M",
@@ -37,7 +37,7 @@ let objDestinatario2={
 let clientes=[objDestinatario, objDestinatario2]
 
 
-async function COT(){
+async function COT(clientes, objTransporte){
 const browser = await puppeteer.launch({ headless: false });
 const page = await browser.newPage()
 await page.goto(URL);
@@ -71,7 +71,7 @@ await popup.type("body > table > tbody > tr > td > form > table > tbody > tr:nth
 const buscar1=await popup.waitForSelector("body > table > tbody > tr > td > form > table > tbody > tr:nth-child(4) > td:nth-child(3) > input.botonFormulario2")
 await buscar1.evaluate(b => b.click());
 const localidad2=await popup.waitForSelector('body > table > tbody > tr > td > form > table > tbody > tr:nth-child(5) > td:nth-child(2) > select')
-await popup.select('body > table > tbody > tr > td > form > table > tbody > tr:nth-child(5) > td:nth-child(2) > select',"10664")
+await popup.select('body > table > tbody > tr > td > form > table > tbody > tr:nth-child(5) > td:nth-child(2) > select',clientes[0].Localidad)
 await popup.waitForTimeout(200)
 const continuar1=await popup.waitForSelector("body > table > tbody > tr > td > form > table > tbody > tr:nth-child(6) > td > input:nth-child(1)")
 await continuar1.evaluate(b => b.click());
@@ -136,8 +136,8 @@ await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-
 await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(3) > td:nth-child(2) > input:nth-child(2)',cuerpo)
 await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(3) > td:nth-child(2) > input:nth-child(3)',sufijo)
 //Chasis y acoplado
-await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(5) > td:nth-child(2) > input:nth-child(1)',transporte.CHASIS)
-await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(5) > td:nth-child(2) > input:nth-child(2)',transporte.ACOPLADO)
+await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(5) > td:nth-child(2) > input:nth-child(1)',transporte.Chasis)
+await page.type('body > table > tbody > tr:nth-child(3) > td > form > table:nth-child(7) > tbody > tr:nth-child(5) > td:nth-child(2) > input:nth-child(2)',transporte.Acoplado)
 
 }
 
