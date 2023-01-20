@@ -1,3 +1,6 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 *{
     box-sizing: border-box;
     margin: 0;
@@ -9,37 +12,165 @@
     --secondary-color:#d6eff2;
     --accent-color:#6dc8d0
 }
+
+/*Estilos de etiquetas*/
 body{
-    /* background-color: var(--bg-color); */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    background-color: var(--primary-color);
+}
+select, input[type="text"],input[type="number"]{
+    width: 10rem;
+    height: 1.3rem;
+    border: 1px grey solid;
+    border-radius: .2rem;
+    padding-left: .1rem;
+}
+select:disabled{
+    color: var(--bg-color) !important;
+    opacity: 1 !important;
+    border-color: var(--bg-color)
+}
+.title{
+    width: fit-content;
+    padding: .2rem .5rem;
+    background: var(--accent-color);
 }
 main{
+    width: 54rem;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(4, 1fr);
+    column-gap: 1rem;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 5rem,10rem,5rem;
     grid-template-areas: "transporte transporte"
                          "clientes aside"
                          "botonera botonera"
 
 }
 .transporte{
-    background-color: var(--secondary-color);
+    /* background-color: var(--secondary-color); */
+    padding: 2rem 0;
     grid-area: transporte;
+    /* border: solid salmon 1px; */
 }
 .cliente{
     grid-area: clientes;
+    /* border: solid hotpink 1px; */
+
+}
+#select_cliente{
+    margin: .7rem 0;
 }
 .productos{
+    position: relative;
+    margin: 1rem 0;
+    padding: 1rem .5rem;
     height: 20rem;
-    aspect-ratio: 2/1;
-    border: double greenyellow .5px;
+    width: 30.5rem;
+    background-color: var(--secondary-color);
+    border: dashed var(--accent-color) 2px;
     grid-area: aside;
-
 }
+.productos::before{
+    position: absolute;
+    content: "productos";
+    font-size: 0.9rem;
+    width: auto;
+    padding: 0 .5rem;
+    top:-.7rem;
+    left: 10%;
+    transform: translateX(-50%);
+    background-color:var(--accent-color);
+    color: var(--primary-color);
+    
+}
+
 .productoNuevo{
-    padding: .25rem;
-    border: dashed deeppink .5px;
+    padding: .05rem;
     width:fit-content;
+    align-self: center;
+}
+.producto{
+    background-color: var(--secondary-color);
+    height: 2rem;
+    width: 20rem;
+    padding: .5rem .7rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    cursor:grabbing;
+}
+input[name="RemitoPrefijo"]{
+    position: relative;
+    width: 1rem;
+    text-align: center;
+}
+.prefijo{
+    margin: 0 .5rem 0 3rem;
+    display: inline-block;
+    position: relative;
+}
+.prefijo::before{
+    position: absolute;
+    content:"Nº000";
+    font-size: 1rem;
+    top: 0.2rem;
+    left: -3rem;
+    height: auto;
+    width: 1rem;
+}
+.prefijo::after{
+    content:"-";
+    position: absolute;
+    font-size: 2rem;
+    top: -.45rem;
+    right: -1.1rem;
+    width: 1rem;
+}
+input[name="RemitoSufijo"]{
+    position: relative;
+    width: 3rem;
+    text-align: center;
 }
 .botonera{
+    width: 100%;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: .5rem;
+}
+.btn-agregar{
+    border-radius: .2rem;
+    padding: .5rem 1rem;
+    background-color:var(--primary-color);
+    border: solid var(--accent-color) 2px;
+    transition: transform .1s linear;
+}
 
+#cotGenerator{
+    align-self: center;
+    width: 90%;
+
+}
+.btn-generar{
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    border-radius: .2rem;
+    width: 100%;
+    height: 2.5rem;
+    background-color:var(--accent-color);
+    border: solid var(--accent-color) 2px;
+    box-shadow: 0 0 .5rem .05rem rgba(128, 128, 128, 0.63);
+    transition: all .1s linear;
+
+}
+.btn-generar:hover{
+    box-shadow: 0 0 .5rem .05rem rgba(44, 44, 44, 0.63);
+    
+}
+
+.grow:hover{
+    transform: scale(1.1);
 }

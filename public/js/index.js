@@ -104,9 +104,13 @@ datosTransporte.addEventListener('submit',e=>e.preventDefault())
 
 productos.addEventListener('drop',e=>{
     console.log('DROP')
-    pushArray(Productos,document.querySelector('.dragging').childNodes[1],document.querySelector('.dragging').childNodes[3])
+    let draggingHTML= document.querySelector('.dragging');
+    pushArray(Productos,draggingHTML.childNodes[1],draggingHTML.childNodes[3])
     console.log({...clientes[select_cliente.value],Productos})
-    e.target.appendChild(document.querySelector('.dragging'))
+    draggingHTML.childNodes[1].setAttribute('disabled',"true")
+    draggingHTML.childNodes[3].setAttribute('readonly',"true")
+
+    e.target.appendChild(draggingHTML)
     createHTMLProduct()
 })
 function createHTMLProduct(){
@@ -117,7 +121,7 @@ function createHTMLProduct(){
         productosArray.map(p=>'<option data-multiplicador="'+p.multiplicador+'" value="'+p.nombre+ '">'+p.codigo+'</option>').join("")
     }
     </select>
-    <input type="number" name="" id="">
+    <input type="number" name="" id="" placeholder="unidades">
 </div>
     `)
     let draggable=[...document.querySelectorAll('[draggable="true"]')].at(-1)
