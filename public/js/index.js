@@ -60,6 +60,15 @@ let clientes={
         Localidad:"10619",
         TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
     },
+    agroisme:{
+        CUIT:"30-70746037-3",
+        Provincia:"M",
+        Calle:"Severo del Castillo",
+        Numero:"5050",
+        CP:"5527",
+        Localidad:"14829",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    },
 }
 // let Solidus={
 //     CUIT:"30-71078345-0",
