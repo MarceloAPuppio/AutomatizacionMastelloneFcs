@@ -18,8 +18,15 @@ app.get('/pepe',async (req,res)=>{
 app.post('/pepe',async (req,res)=>{
     console.log("tpte",req.body.transporte)
     console.log("cliente",req.body.clientes[0])
+    try{
+        await COT(req.body.clientes,req.body.transporte)
+        res.json({message:"COT realizado con éxito"})
+    }
+    catch(e){
+        res.json({message:e.message})
 
-    await COT(req.body.clientes,req.body.transporte)
+    }
+
 
 })
 

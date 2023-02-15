@@ -171,5 +171,6 @@ cotGenerator.addEventListener('submit',e=>{
             "transporte":{...transporte,CUIT:transporte.CUIT==="propio"?clientes[select_cliente.value].CUIT:transportes[transporte.CUIT]},
             "clientes":destinariosCOT
         })
-    }).then(e=>{destinariosCOT=[];Productos=[];Transporte={}})
+    }).then(e=>e.json()).then(e=>{alert(e.message);destinariosCOT=[];Productos=[];Transporte={}})
+
 })
