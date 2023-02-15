@@ -69,6 +69,15 @@ let clientes={
         Localidad:"14829",
         TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
     },
+        fusari:{
+        CUIT:"30-71032188-0",
+        Provincia:"M",
+        Calle:"2 de mayo",
+        Numero:"9690",
+        CP:"5527",
+        Localidad:"14829",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    },
 }
 // let Solidus={
 //     CUIT:"30-71078345-0",
