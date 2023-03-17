@@ -13,6 +13,17 @@ let productosArray= [
     {codigo:43144, nombre:"Sal fina lavada y seca Dos Anclas x 25 kg", multiplicador:25},
     {codigo:1001, nombre:"Sal a granel Dos Anclas", multiplicador:1},
     {codigo:21100, nombre:"Bolsones de sal gruesa común x 1000 kg. Dos Anclas", multiplicador:1000},
+    {codigo:21105, nombre:"Bolsas de sal gruesa común x 50 kg. Dos Anclas", multiplicador:50},
+    {codigo:21120, nombre:"Bolsas de sal gruesa común x 25 kg. Dos Anclas", multiplicador:25},
+    {codigo:22110, nombre:"Bolsas de sal entrefina común x 50 kg. Dos Anclas", multiplicador:50},
+    {codigo:22121, nombre:"Bolsas de sal entrefina común x 25 kg. Dos Anclas", multiplicador:25},
+    {codigo:31110, nombre:"Bolsas de sal gruesa lavada x 50 kg. Dos Anclas", multiplicador:50},
+    {codigo:32115, nombre:"Bolsas de sal entrefina lavada x 50 kg. Dos Anclas", multiplicador:50},
+
+
+
+
+
 
 
 ]
@@ -78,6 +89,34 @@ let clientes={
         Localidad:"14829",
         TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
     },
+        incoagro:{
+        CUIT:"30-63014374-4",
+        Provincia:"M",
+        Calle:"25 de mayo",
+        Numero:"325",
+        CP:"5501",
+        Localidad:"10738",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    },
+        rpb:{
+        CUIT:"30-66313737-5",
+        Provincia:"M",
+        Calle:"CARRIL RODRIGUEZ PEÑA KM. 10.5",
+        Numero:"0",
+        CP:"5515",
+        Localidad:"15485",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    },
+    aleder:{
+        CUIT:"30-71151379-1",
+        Provincia:"M",
+        Calle:"Ruta Prov. 50 esq. Carril Montecasero",
+        Numero:"1",
+        CP:"5570",
+        Localidad:"10664",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    }, 
+
 }
 // let Solidus={
 //     CUIT:"30-71078345-0",
