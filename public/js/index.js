@@ -116,7 +116,15 @@ let clientes={
         Localidad:"10664",
         TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
     }, 
-
+    sanjavier:{
+        CUIT:"30-60562401-0",
+        Provincia:"M",
+        Calle:"Alsina",
+        Numero:"1283",
+        CP:"5513",
+        Localidad:"15436",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    }, 
 }
 // let Solidus={
 //     CUIT:"30-71078345-0",
