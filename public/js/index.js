@@ -116,6 +116,15 @@ let clientes={
         Localidad:"10664",
         TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
     }, 
+    atilio:{
+        CUIT:"30-50473832-5",
+        Provincia:"M",
+        Calle:"Urquiza",
+        Numero:"1650",
+        CP:"5521",
+        Localidad:"21718",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    },
     sanjavier:{
         CUIT:"30-60562401-0",
         Provincia:"M",
