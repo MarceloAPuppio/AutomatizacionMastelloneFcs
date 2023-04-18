@@ -161,7 +161,26 @@ let clientes={
         Localidad:"16596",
         TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
     }, 
+    durang:{
+        CUIT:"30-67636134-7",
+        Provincia:"M",
+        Calle:"DURAND ",
+        Numero:"80000",
+        CP:"5527",
+        Localidad:"14829",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    }, 
+    agroindustria:{
+        CUIT:"30-54118003-2",
+        Provincia:"M",
+        Calle:"RUTAS 143 Y 165",
+        Numero:"0",
+        CP:"5603",
+        Localidad:"18785",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    }, 
 }
+
 // let Solidus={
 //     CUIT:"30-71078345-0",
 //     Provincia:"M",
