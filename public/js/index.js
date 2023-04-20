@@ -179,6 +179,15 @@ let clientes={
         Localidad:"18785",
         TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
     }, 
+    laghi:{
+        CUIT:"20-16376051-8",
+        Provincia:"M",
+        Calle:"Av. Alvear Este",
+        Numero:"353",
+        CP:"5620",
+        Localidad:"10590",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    }, 
 }
 
 // let Solidus={
