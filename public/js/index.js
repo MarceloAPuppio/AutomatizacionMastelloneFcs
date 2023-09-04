@@ -188,6 +188,15 @@ let clientes={
         Localidad:"10590",
         TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
     }, 
+    winner:{
+        CUIT:"30-67200098-6",
+        Provincia:"M",
+        Calle:"Julio A. Roca",
+        Numero:"1457",
+        CP:"5501",
+        Localidad:"10738",
+        TipoComprobante:"", RemitoPrefijo:"", RemitoSufijo:"", Importe:"",
+    }, 
 }
 
 // let Solidus={
